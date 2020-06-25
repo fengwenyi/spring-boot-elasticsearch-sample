@@ -1,0 +1,164 @@
+body {
+  background-image: url('../../assets/images/login-bg3.jpg');
+  //background-image: url('https://passport.baidu.com/static/passpc-account/img/reg_bg_min.jpg');
+  background-size: cover;
+  background-position: center;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .bg {
+    width: 100%;
+    height: 100%;
+    //background-color: #f3f3f3;
+    position: absolute;
+    z-index: 1;
+    //opacity: .9;
+  }
+
+  .content {
+    width: 430px;
+    height: 465px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 3;
+    background: rgba(255, 255, 255, .7);
+    box-shadow: 0 0 10px #999;
+    border-radius: 5px;
+    padding: 50px 50px 10px;
+    @media screen and (max-width: 800px) {
+
+      width: calc(100% - 10px);
+      padding: 30px 30px 10px;
+
+    }
+
+    .box-logo {
+      text-align: center;
+
+      .image-logo {
+        height: 50px;
+        width: auto;
+        vertical-align: middle;
+      }
+    }
+
+    .title {
+      width: 100%;
+      text-align: center;
+      vertical-align: middle;
+
+      img {
+        height: 50px;
+        width: auto;
+        vertical-align: middle;
+      }
+
+      span {
+        font-size: 35px;
+        vertical-align: middle;
+        display: inline-block;
+        margin-left: 20px;
+        font-weight: bold;
+      }
+    }
+
+    .description {
+      text-align: center;
+      color: #666;
+    }
+
+    .box-login {
+      .login-form {
+        margin-top: 30px;
+
+        .login-form-input {
+          width: 100%;
+          display: block;
+          margin-top: 5px;
+        }
+
+        .login-form-btn-submit {
+          width: 100%;
+          height: 45px;
+          display: block;
+          margin-top: 10px;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .box-third-login {
+      width: 100%;
+      height: 36px;
+      margin-top: 50px;
+      display: flex;
+      justify-content: center;
+
+      .box-item-content {
+        width: 200px;
+        display: flex;
+        justify-content: space-around;
+
+        .item {
+          width: 36px;
+          height: 36px;
+          border-radius: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 28px;
+          background-color: #000;
+          color: #fff;
+        }
+      }
+    }
+
+    .box-login-way-select {
+      width: 100%;
+      height: 45px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .item {
+        color: #2d8cf0;
+        cursor: pointer;
+
+        .split {
+          color: #aaa;
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .footer {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+    }
+
+
+  }
+
+  .footer {
+    .company {
+      margin-left: 10px;
+    }
+  }
+}
