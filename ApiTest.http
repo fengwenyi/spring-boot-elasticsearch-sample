@@ -1,0 +1,9 @@
+
+
+###
+
+# 测试抓取华为手机信息
+GET http://localhost:9099/api/phone/grab
+Content-Type: application/json
+
+###
