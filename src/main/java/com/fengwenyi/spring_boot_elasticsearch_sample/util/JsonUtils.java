@@ -22,7 +22,7 @@ public class JsonUtils {
         return null;
     }
 
-    public static String coverObject(String json) {
+    public static String coverObject(Object json) {
         try {
             return objectMapper.writeValueAsString(json);
         } catch (JsonProcessingException e) {

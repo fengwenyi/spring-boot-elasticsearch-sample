@@ -1,17 +1,12 @@
 package com.fengwenyi.spring_boot_elasticsearch_sample.entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 /**
  * 手机实体类
@@ -30,29 +25,29 @@ public class PhoneEntity implements Serializable {
     /* 名称 */
     private String name;
 
-    /* 卖点，多个用（||）隔开 */
-    private String sellingPoints;
+    /* 推广广告 */
+    private String ad;
 
     /* 售价 */
-    private String price;
+    private BigDecimal price;
 
-    /* 品牌 */
-    private String brand;
+    /* 图片URL */
+    private String imgUrl;
 
-    /* 产量 */
-    private Long yield;
+    /* 内存 */
+    private String memory;
 
-    /* 销售量 */
-    private Long sale;
+    /* 存储 */
+    private String storage;
 
-    /* 颜色，用英文分号(||)分隔 */
-    private String colors;
+    /* 屏幕 */
+    private String screen;
 
-    /* 上市时间 */
-    private LocalDateTime marketTime;
 
-    /* 创建时间 */
+    /* 创建时间，时间戳，毫秒 */
     private Long createTimeStamp;
+
+    /* 创建时间，yyyy-MM-dd HH:mm:ss,SSS */
     private String createTimeString;
 
 }

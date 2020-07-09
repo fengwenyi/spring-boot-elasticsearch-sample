@@ -15,4 +15,7 @@ public final class Constants {
     /* 抓取华为手机信息的URL */
     public static final String URL_PHONE_HUAWEI = "https://consumer.huawei.com/cn/phones/?ic_medium=hwdc&ic_source=corp_header_consumer";
 
+    /* 抓取华为手机信息的URL */
+    public static final String URL_PHONE_JD = "https://list.jd.com/list.html?cat=9987,653,655";
+
 }

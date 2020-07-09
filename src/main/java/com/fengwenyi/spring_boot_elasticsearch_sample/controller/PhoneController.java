@@ -1,7 +1,9 @@
 package com.fengwenyi.spring_boot_elasticsearch_sample.controller;
 
 import com.fengwenyi.api_result.model.ResultModel;
-import com.fengwenyi.spring_boot_elasticsearch_sample.service.GrabDataService;
+import com.fengwenyi.spring_boot_elasticsearch_sample.entity.PhoneEntity;
+import com.fengwenyi.spring_boot_elasticsearch_sample.repository.PhoneRepository;
+import com.fengwenyi.spring_boot_elasticsearch_sample.service.DataService;
 import com.fengwenyi.spring_boot_elasticsearch_sample.util.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,12 +23,22 @@ import reactor.core.publisher.Mono;
 public class PhoneController {
 
     @Autowired
-    private GrabDataService grabDataService;
+    private DataService dataService;
+
+    @Autowired
+    private PhoneRepository phoneRepository;
 
     // 抓取数据接口
     @GetMapping("/grab")
     public Mono<ResultModel<?>> grabData() {
-        grabDataService.huawei();
+        new Thread(() -> dataService.jd()).start();
+        return Mono.just(ResponseUtils.success());
+    }
+
+    // 导出数据接口
+    @GetMapping("/export")
+    public Mono<ResultModel<?>> exportData() {
+        new Thread(() -> dataService.export()).start();
         return Mono.just(ResponseUtils.success());
     }
 
@@ -39,4 +51,10 @@ public class PhoneController {
 
     }
 
+    @GetMapping("all")
+    public Mono<ResultModel<?>> getAll() {
+        Iterable<PhoneEntity> all = phoneRepository.findAll();
+        all.forEach(System.out::println);
+        return Mono.just(ResponseUtils.success());
+    }
 }

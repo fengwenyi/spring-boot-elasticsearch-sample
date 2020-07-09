@@ -7,3 +7,14 @@ GET http://localhost:9099/api/phone/grab
 Content-Type: application/json
 
 ###
+
+
+# 查询所有手机信息
+GET http://localhost:9099/api/phone/all
+Content-Type: application/json
+
+###
+
+# 导出所有手机信息
+GET http://localhost:9099/api/phone/export
+Content-Type: application/json
