@@ -13,14 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 /**
+ * 数据接口
  * @author Erwin Feng
- * @since 2020/7/4
+ * @since 2020/7/10
  */
 @RestController
-@RequestMapping(value = "/api/phone",
+@RequestMapping(value = "/api/data",
         produces = MediaType.APPLICATION_JSON_VALUE,
         consumes = MediaType.APPLICATION_JSON_VALUE)
-public class PhoneController {
+public class DataController {
 
     @Autowired
     private DataService dataService;
@@ -30,25 +31,16 @@ public class PhoneController {
 
     // 抓取数据接口
     @GetMapping("/grab")
-    public Mono<ResultModel<?>> grabData() {
+    public Mono<ResultModel<?>> grab() {
         new Thread(() -> dataService.jd()).start();
         return Mono.just(ResponseUtils.success());
     }
 
     // 导出数据接口
     @GetMapping("/export")
-    public Mono<ResultModel<?>> exportData() {
+    public Mono<ResultModel<?>> export() {
         new Thread(() -> dataService.export()).start();
         return Mono.just(ResponseUtils.success());
-    }
-
-    // 全局搜索
-
-    // 高级搜索
-
-    // 清除数据
-    public void clearData() {
-
     }
 
     @GetMapping("all")
@@ -57,4 +49,5 @@ public class PhoneController {
         all.forEach(System.out::println);
         return Mono.just(ResponseUtils.success());
     }
+
 }

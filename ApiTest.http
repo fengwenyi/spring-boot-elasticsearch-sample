@@ -2,19 +2,31 @@
 
 ###
 
-# 测试抓取华为手机信息
-GET http://localhost:9099/api/phone/grab
+# 测试抓取手机信息
+GET http://localhost:9099/api/data/grab
 Content-Type: application/json
 
 ###
 
 
 # 查询所有手机信息
-GET http://localhost:9099/api/phone/all
+GET http://localhost:9099/api/data/all
 Content-Type: application/json
 
 ###
 
 # 导出所有手机信息
-GET http://localhost:9099/api/phone/export
+GET http://localhost:9099/api/data/export
 Content-Type: application/json
+
+###
+
+# 全文搜索
+POST http://localhost:9099/api/search/full
+Content-Type: application/json
+
+{
+  "currentPage": 1,
+  "keyword": "红米"
+}
+
