@@ -21,7 +21,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'com.fengwenyi:api-result:2.0.4.RELEASE'
+    implementation 'com.fengwenyi:api-result:2.1.0.RELEASE'
     implementation 'com.fengwenyi:JavaLib:2.0.4.RELEASE'
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'com.squareup.okhttp3:okhttp:4.7.2'

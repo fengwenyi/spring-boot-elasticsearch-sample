@@ -1,7 +1,11 @@
 package com.fengwenyi.spring_boot_elasticsearch_sample.service;
 
+import com.fengwenyi.api_result.entity.ResponseEntity;
 import com.fengwenyi.api_result.model.ResultModel;
+import com.fengwenyi.spring_boot_elasticsearch_sample.entity.PhoneEntity;
 import com.fengwenyi.spring_boot_elasticsearch_sample.vo.request.FullSearchRequestVo;
+
+import java.util.List;
 
 /**
  * 搜索服务接口
@@ -13,7 +17,7 @@ public interface SearchService {
     /**
      * 全文搜索
      * @param requestVo {@link FullSearchRequestVo}
-     * @return {@link ResultModel}
+     * @return {@link ResponseEntity}
      */
-    ResultModel fullSearch(FullSearchRequestVo requestVo);
+    ResponseEntity<Void, List<PhoneEntity>> fullSearch(FullSearchRequestVo requestVo);
 }
