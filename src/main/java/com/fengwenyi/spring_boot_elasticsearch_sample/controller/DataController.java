@@ -5,6 +5,7 @@ import com.fengwenyi.spring_boot_elasticsearch_sample.entity.PhoneEntity;
 import com.fengwenyi.spring_boot_elasticsearch_sample.repository.PhoneRepository;
 import com.fengwenyi.spring_boot_elasticsearch_sample.service.DataService;
 import com.fengwenyi.spring_boot_elasticsearch_sample.util.ResponseUtils;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
  * @author Erwin Feng
  * @since 2020/7/10
  */
+@Api("搜索服务接口")
 @RestController
 @RequestMapping(value = "/api/data",
         produces = MediaType.APPLICATION_JSON_VALUE,

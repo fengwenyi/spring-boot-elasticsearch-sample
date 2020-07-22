@@ -19,12 +19,23 @@ repositories {
 }
 
 dependencies {
+    /** spring data es */
     implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'com.fengwenyi:api-result:2.1.0.RELEASE'
+    /** spring webflux */
+//    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    /** API接口响应库 */
+    implementation 'com.fengwenyi:api-result:2.1.1.RELEASE'
+    /** 工具类 */
     implementation 'com.fengwenyi:JavaLib:2.0.4.RELEASE'
+    /** html解析 */
     implementation 'org.jsoup:jsoup:1.13.1'
+    /** HTTP请求 */
     implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+    /** swagger-ui doc */
+    implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:2.0.4'
+    /** reactor core */
+    implementation 'io.projectreactor:reactor-core:3.3.5.RELEASE'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
