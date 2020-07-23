@@ -20,7 +20,9 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -40,18 +42,13 @@ public class SearchServiceImpl implements SearchService {
     private static final int DEFAULT_PAGE_SIZE = 10;
 
     @Override
-    public ResponseEntity<Void, List<PhoneEntity>> fullSearch(FullSearchRequestVo requestVo) {
+    public ResponseEntity<Void, Map<String, Object>> fullSearch(FullSearchRequestVo requestVo) {
 
         Integer currentPage = requestVo.getCurrentPage();
         String keyword = requestVo.getKeyword();
 
-        // 校验参数
-        if (currentPage == null || currentPage < 1)
-            currentPage = 1; // if page is null, page = 0
-
         // 构造分页类
-        int DEFAULT_PAGE_SIZE = 10;
-        Pageable pageable = PageRequest.of(currentPage, DEFAULT_PAGE_SIZE);
+        Pageable pageable = this.getPageable(currentPage);
 
     /*
     SearchQuery
@@ -69,8 +66,9 @@ public class SearchServiceImpl implements SearchService {
         NativeSearchQuery searchQuery = nativeSearchQueryBuilder.build();
 
         // page search
+        long searchStartTime = System.nanoTime();
         SearchHits<PhoneEntity> searchHits = elasticsearchRestTemplate.search(searchQuery, PhoneEntity.class);
-
+        long searchEndTime = System.nanoTime();
 //        searchHits.get().peek(
 //                phoneEntitySearchHit -> {
 //                    log.info("id: {}", phoneEntitySearchHit.getId());
@@ -98,23 +96,37 @@ public class SearchServiceImpl implements SearchService {
 
         List<PhoneEntity> list = searchHits.get().map(SearchHit::getContent).collect(Collectors.toList());
 
-        return ResponseUtils.success(list, totalHits, this.getTotalPages(totalHits), DEFAULT_PAGE_SIZE, currentPage.longValue());
+        double searchSpendTime = (double) (searchEndTime - searchStartTime) / 1000000000;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("time", searchSpendTime);
+        map.put("content", list);
+
+        return ResponseUtils.success(map, totalHits, this.getTotalPages(totalHits), DEFAULT_PAGE_SIZE, (long) this.dealCurrentPage(requestVo.getCurrentPage()) + 1);
     }
 
     @Override
-    public ResponseEntity<Void, List<PhoneEntity>> advancedSearch(AdvancedSearchRequestVo requestVo) {
+    public ResponseEntity<Void, Map<String, Object>> advancedSearch(AdvancedSearchRequestVo requestVo) {
 
         // NativeSearchQuery searchQuery = nativeSearchQueryBuilder.build();
         NativeSearchQuery searchQuery = this.pacAdvancedSearchQuery(requestVo);
 
         // page search
+        long searchStartTime = System.nanoTime();
         SearchHits<PhoneEntity> searchHits = elasticsearchRestTemplate.search(searchQuery, PhoneEntity.class);
+        long searchEndTime = System.nanoTime();
 
         long totalHits = searchHits.getTotalHits();
 
         List<PhoneEntity> list = searchHits.get().map(SearchHit::getContent).collect(Collectors.toList());
 
-        return ResponseUtils.success(list, totalHits, this.getTotalPages(totalHits), DEFAULT_PAGE_SIZE, (long) this.dealCurrentPage(requestVo.getCurrentPage()) + 1);
+        double searchSpendTime = (double) (searchEndTime - searchStartTime) / 1000000000;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("time", searchSpendTime);
+        map.put("content", list);
+
+        return ResponseUtils.success(map, totalHits, this.getTotalPages(totalHits), DEFAULT_PAGE_SIZE, (long) this.dealCurrentPage(requestVo.getCurrentPage()) + 1);
     }
 
     //-------------------------------- private method start -------------------------------------------------------------------------

@@ -24,9 +24,6 @@ public class AdvancedSearchRequestVo {
     /* 售价:最高 */
     private BigDecimal priceMax;
 
-    /* 图片URL */
-    private String imgUrl;
-
     /* 内存 */
     private String memory;
 
@@ -37,10 +34,10 @@ public class AdvancedSearchRequestVo {
     private String screen;
 
     /* 开始时间字符串 */
-    private String startTimeStamp;
+    private Long startTimeStamp;
 
     /* 结束时间字符串 */
-    private String endTimeStamp;
+    private Long endTimeStamp;
 
     /** 当前页 */
     private Integer currentPage;

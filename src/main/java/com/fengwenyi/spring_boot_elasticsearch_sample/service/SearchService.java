@@ -7,6 +7,7 @@ import com.fengwenyi.spring_boot_elasticsearch_sample.vo.request.AdvancedSearchR
 import com.fengwenyi.spring_boot_elasticsearch_sample.vo.request.FullSearchRequestVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 搜索服务接口
@@ -20,12 +21,12 @@ public interface SearchService {
      * @param requestVo {@link FullSearchRequestVo}
      * @return {@link ResponseEntity}
      */
-    ResponseEntity<Void, List<PhoneEntity>> fullSearch(FullSearchRequestVo requestVo);
+    ResponseEntity<Void, Map<String, Object>> fullSearch(FullSearchRequestVo requestVo);
 
     /**
      * 高级搜索
      * @param requestVo 搜索条件
      * @return 返回搜索结果
      */
-    ResponseEntity<Void, List<PhoneEntity>> advancedSearch(AdvancedSearchRequestVo requestVo);
+    ResponseEntity<Void, Map<String, Object>> advancedSearch(AdvancedSearchRequestVo requestVo);
 }

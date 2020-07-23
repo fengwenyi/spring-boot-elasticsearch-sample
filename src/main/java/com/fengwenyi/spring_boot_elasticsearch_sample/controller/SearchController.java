@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 搜索接口
  * @author Erwin Feng
  * @since 2020/7/4
  */
+@CrossOrigin
 @Api("搜索服务接口")
 @RestController
 @RequestMapping(value = "/api/search",
@@ -33,16 +35,16 @@ public class SearchController {
     // 全局搜索
     @ApiOperation("全局搜索接口")
     @PostMapping("/full")
-    public Mono<ResponseEntity<Void, List<PhoneEntity>>> fullSearch(@RequestBody FullSearchRequestVo requestVo) {
-        ResponseEntity<Void, List<PhoneEntity>> responseEntity = searchService.fullSearch(requestVo);
+    public Mono<ResponseEntity<Void, Map<String, Object>>> fullSearch(@RequestBody FullSearchRequestVo requestVo) {
+        ResponseEntity<Void, Map<String, Object>> responseEntity = searchService.fullSearch(requestVo);
         return Mono.just(responseEntity);
     }
 
     // 高级搜索
     @ApiOperation("高级搜索接口")
     @PostMapping("/advanced")
-    public Mono<ResponseEntity<Void, List<PhoneEntity>>> advancedSearch(@RequestBody AdvancedSearchRequestVo requestVo) {
-        ResponseEntity<Void, List<PhoneEntity>> responseEntity = searchService.advancedSearch(requestVo);
+    public Mono<ResponseEntity<Void, Map<String, Object>>> advancedSearch(@RequestBody AdvancedSearchRequestVo requestVo) {
+        ResponseEntity<Void, Map<String, Object>> responseEntity = searchService.advancedSearch(requestVo);
         return Mono.just(responseEntity);
     }
 
