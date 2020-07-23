@@ -55,6 +55,10 @@
 
     </section>
 
+    <section class="search-param-panel">
+      <Tag checkable color="error" v-for="(item, index) in searchParamShow" v-show="item.value">{{item.title}}：“{{item.value}}”</Tag>
+    </section>
+
     <section class="search-info-panel">
       找到相关结果约 {{ searchInfo.resultNum }} 个（{{ searchInfo.time }}秒）
     </section>
@@ -287,6 +291,7 @@
           screen: '',
           time: []
         },
+        searchParamShow: []
       }
     },
     methods: {
@@ -299,6 +304,12 @@
           keyword: this.formFullKeyword,
           currentPage: this.page.currentPage
         }
+        this.searchParamShow = [
+          {
+            title: '全文搜索',
+            value: this.formFullKeyword
+          }
+        ]
         apiFullSearch(param).then(result => {
           if (result.success) {
             this.dataList = result.data.content
@@ -322,6 +333,43 @@
           startTimeStamp: this.formAdvanced.time[0] === '' ? '' : this.formAdvanced.time[0].getTime(),
           endTimeStamp: this.formAdvanced.time[1] === '' ? '' : this.formAdvanced.time[1].getTime()
         }
+        this.searchParamShow = []
+        this.searchParamShow.push({
+          title: '姓名',
+          value: param.name
+        })
+        this.searchParamShow.push({
+          title: '广告',
+          value: param.ad
+        })
+        this.searchParamShow.push({
+          title: '最低价',
+          value: param.priceMin
+        })
+        this.searchParamShow.push({
+          title: '最高价',
+          value: param.priceMax
+        })
+        this.searchParamShow.push({
+          title: '内存',
+          value: param.memory
+        })
+        this.searchParamShow.push({
+          title: '存储',
+          value: param.storage
+        })
+        this.searchParamShow.push({
+          title: '屏幕',
+          value: param.screen
+        })
+        this.searchParamShow.push({
+          title: '开始时间',
+          value: param.startTimeStamp
+        })
+        this.searchParamShow.push({
+          title: '结束时间',
+          value: param.endTimeStamp
+        })
         apiAdvancedSearch(param).then(result => {
           if (result.success) {
             this.dataList = result.data.content
@@ -354,13 +402,16 @@
 
 <style scoped lang="stylus">
 
+  .search-panel
+    margin-bottom 30px
+
   .search-info-panel
-    margin-top 30px
+    margin-top 5px
     color #999
     font-size 10px
 
   .data-container
-    margin-top 10px
+    margin-top 30px
 
   .img
     width 150px
