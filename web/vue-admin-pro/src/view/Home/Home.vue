@@ -312,10 +312,13 @@
         ]
         apiFullSearch(param).then(result => {
           if (result.success) {
-            this.dataList = result.data.content
-            this.page = result.page
-            this.searchInfo.resultNum = this.page.totalElements
-            this.searchInfo.time = result.data.time
+            this.dataList = result.body.content
+            this.page.currentPage = result.body.currentPage
+            this.page.pageSize = result.body.pageSize
+            this.page.totalElements = result.body.totalElements
+            this.page.totalPages = result.body.totalPages
+            this.searchInfo.resultNum = result.body.totalElements
+            this.searchInfo.time = result.body.execSpendTime
           }
         })
       },
@@ -372,10 +375,13 @@
         })
         apiAdvancedSearch(param).then(result => {
           if (result.success) {
-            this.dataList = result.data.content
-            this.page = result.page
-            this.searchInfo.resultNum = this.page.totalElements
-            this.searchInfo.time = result.data.time
+            this.dataList = result.body.content
+            this.page.currentPage = result.body.currentPage
+            this.page.pageSize = result.body.pageSize
+            this.page.totalElements = result.body.totalElements
+            this.page.totalPages = result.body.totalPages
+            this.searchInfo.resultNum = result.body.totalElements
+            this.searchInfo.time = result.body.execSpendTime
           }
         })
       },

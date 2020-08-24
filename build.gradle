@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.2.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
 }
 
@@ -15,6 +15,10 @@ configurations {
 }
 
 repositories {
+    maven {
+        url 'https://maven.aliyun.com/repository/public/'
+    }
+    mavenLocal()
     mavenCentral()
 }
 
@@ -25,9 +29,9 @@ dependencies {
 //    implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     /** API接口响应库 */
-    implementation 'com.fengwenyi:api-result:2.2.0.RELEASE'
+    implementation 'com.fengwenyi:api-result:2.2.1.RELEASE'
     /** 工具类 */
-    implementation 'com.fengwenyi:JavaLib:2.0.4.RELEASE'
+    implementation 'com.fengwenyi:JavaLib:2.1.0.RELEASE'
     /** html解析 */
     implementation 'org.jsoup:jsoup:1.13.1'
     /** HTTP请求 */

@@ -1,12 +1,12 @@
 package com.fengwenyi.spring_boot_elasticsearch_sample.service.impl;
 
-import com.fengwenyi.api_result.entity.ResponseEntity;
-import com.fengwenyi.api_result.util.ResponseUtils;
+import com.fengwenyi.api.result.CommonResponse;
 import com.fengwenyi.javalib.util.StringUtils;
 import com.fengwenyi.spring_boot_elasticsearch_sample.entity.PhoneEntity;
 import com.fengwenyi.spring_boot_elasticsearch_sample.service.SearchService;
 import com.fengwenyi.spring_boot_elasticsearch_sample.vo.request.AdvancedSearchRequestVo;
 import com.fengwenyi.spring_boot_elasticsearch_sample.vo.request.FullSearchRequestVo;
+import com.fengwenyi.spring_boot_elasticsearch_sample.vo.response.PhoneSearchResultResponseVo;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -20,9 +20,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -42,7 +40,7 @@ public class SearchServiceImpl implements SearchService {
     private static final int DEFAULT_PAGE_SIZE = 10;
 
     @Override
-    public ResponseEntity<Void, Map<String, Object>> fullSearch(FullSearchRequestVo requestVo) {
+    public CommonResponse<PhoneSearchResultResponseVo> fullSearch(FullSearchRequestVo requestVo) {
 
         Integer currentPage = requestVo.getCurrentPage();
         String keyword = requestVo.getKeyword();
@@ -98,15 +96,17 @@ public class SearchServiceImpl implements SearchService {
 
         double searchSpendTime = (double) (searchEndTime - searchStartTime) / 1000000000;
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("time", searchSpendTime);
-        map.put("content", list);
-
-        return ResponseUtils.success(map, totalHits, this.getTotalPages(totalHits), DEFAULT_PAGE_SIZE, (long) this.dealCurrentPage(requestVo.getCurrentPage()) + 1);
+        PhoneSearchResultResponseVo responseVo = new PhoneSearchResultResponseVo(
+                (long) this.dealCurrentPage(requestVo.getCurrentPage()) + 1,
+                DEFAULT_PAGE_SIZE, totalHits,
+                this.getTotalPages(totalHits),
+                list,
+                String.valueOf(searchSpendTime));
+        return CommonResponse.ok(responseVo);
     }
 
     @Override
-    public ResponseEntity<Void, Map<String, Object>> advancedSearch(AdvancedSearchRequestVo requestVo) {
+    public CommonResponse<PhoneSearchResultResponseVo> advancedSearch(AdvancedSearchRequestVo requestVo) {
 
         // NativeSearchQuery searchQuery = nativeSearchQueryBuilder.build();
         NativeSearchQuery searchQuery = this.pacAdvancedSearchQuery(requestVo);
@@ -122,11 +122,13 @@ public class SearchServiceImpl implements SearchService {
 
         double searchSpendTime = (double) (searchEndTime - searchStartTime) / 1000000000;
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("time", searchSpendTime);
-        map.put("content", list);
-
-        return ResponseUtils.success(map, totalHits, this.getTotalPages(totalHits), DEFAULT_PAGE_SIZE, (long) this.dealCurrentPage(requestVo.getCurrentPage()) + 1);
+        PhoneSearchResultResponseVo responseVo = new PhoneSearchResultResponseVo(
+                (long) this.dealCurrentPage(requestVo.getCurrentPage()) + 1,
+                DEFAULT_PAGE_SIZE, totalHits,
+                this.getTotalPages(totalHits),
+                list,
+                String.valueOf(searchSpendTime));
+        return CommonResponse.ok(responseVo);
     }
 
     //-------------------------------- private method start -------------------------------------------------------------------------

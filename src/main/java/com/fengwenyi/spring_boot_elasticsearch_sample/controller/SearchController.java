@@ -1,20 +1,16 @@
 package com.fengwenyi.spring_boot_elasticsearch_sample.controller;
 
-import com.fengwenyi.api_result.entity.ResponseEntity;
-import com.fengwenyi.api_result.model.ResultModel;
-import com.fengwenyi.spring_boot_elasticsearch_sample.entity.PhoneEntity;
+import com.fengwenyi.api.result.CommonResponse;
 import com.fengwenyi.spring_boot_elasticsearch_sample.service.SearchService;
 import com.fengwenyi.spring_boot_elasticsearch_sample.vo.request.AdvancedSearchRequestVo;
 import com.fengwenyi.spring_boot_elasticsearch_sample.vo.request.FullSearchRequestVo;
+import com.fengwenyi.spring_boot_elasticsearch_sample.vo.response.PhoneSearchResultResponseVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 搜索接口
@@ -35,16 +31,16 @@ public class SearchController {
     // 全局搜索
     @ApiOperation("全局搜索接口")
     @PostMapping("/full")
-    public Mono<ResponseEntity<Void, Map<String, Object>>> fullSearch(@RequestBody FullSearchRequestVo requestVo) {
-        ResponseEntity<Void, Map<String, Object>> responseEntity = searchService.fullSearch(requestVo);
+    public Mono<CommonResponse<PhoneSearchResultResponseVo>> fullSearch(@RequestBody FullSearchRequestVo requestVo) {
+        CommonResponse<PhoneSearchResultResponseVo> responseEntity = searchService.fullSearch(requestVo);
         return Mono.just(responseEntity);
     }
 
     // 高级搜索
     @ApiOperation("高级搜索接口")
     @PostMapping("/advanced")
-    public Mono<ResponseEntity<Void, Map<String, Object>>> advancedSearch(@RequestBody AdvancedSearchRequestVo requestVo) {
-        ResponseEntity<Void, Map<String, Object>> responseEntity = searchService.advancedSearch(requestVo);
+    public Mono<CommonResponse<PhoneSearchResultResponseVo>> advancedSearch(@RequestBody AdvancedSearchRequestVo requestVo) {
+        CommonResponse<PhoneSearchResultResponseVo> responseEntity = searchService.advancedSearch(requestVo);
         return Mono.just(responseEntity);
     }
 
